@@ -81,14 +81,14 @@ def scrape_grammy(grammy_urls):
 
         winner_df = pd.DataFrame(winner)
         nominees_df = pd.DataFrame(nominees)
-        cur_df = winner_df.append(nominees_df)
-        grammy_df = grammy_df.append(cur_df)
-
-        print('finished year {}/2022'.format(year))
+        cur_df = pd.concat([winner_df, nominees_df])
+        grammy_df = pd.concat([grammy_df, cur_df])
 
     return grammy_df
 
 # %%
 grammy_urls = get_grammy_urls()
 grammy_df = scrape_grammy(grammy_urls)
-grammy_df.to_csv('grammy_df.csv')
+grammy_df.to_csv('grammy_df.csv', index=False)
+
+# %%
