@@ -1,4 +1,4 @@
-## How to Win a Grammy: A Guide
+
 #### "Sentiment Analysis of Song Lyrics and the Relationship with the Grammy Awards for Best Record"
 *Luis Quiñones, Shaney Sze*
 
