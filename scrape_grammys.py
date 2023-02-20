@@ -52,7 +52,7 @@ def scrape_grammy(grammy_urls):
         browser.get(grammy_url)
 
         time.sleep(4)
-        
+
         records = browser.find_elements_by_xpath('//*[@id="627"]/div[2]/div/div[2]/div')[-1].text
 
         # get grammy iteration
