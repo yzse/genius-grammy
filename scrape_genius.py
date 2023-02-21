@@ -14,21 +14,19 @@ from nltk.tokenize import word_tokenize
 
 def get_lyrics_from_dataframe(df, access_token, timeout=40):
     # Initialize Genius API client with timeout
-    genius = lyricsgenius.Genius(access_token, timeout=timeout)
+    genius = lyricsgenius.Genius(access_token, skip_non_songs=True, excluded_terms=["(Remix)", "(Live)"], remove_section_headers=True,timeout=timeout)
 
     # Iterate over rows in dataframe
-    lyrics = []
-    song_names = []
-    for index, row in df.iterrows():
-        song_title = row['title']
-        song = genius.search_song(song_title)
-        if song is not None:
-            song_lyrics = song.lyrics
-            lyrics.append(song_lyrics)
-            song_names.append(song_title)
-
-    # Create dataframe with lyrics
-    lyrics_df = pd.DataFrame(data=lyrics, index=song_names, columns=['lyrics'])
-    merged_df = pd.merge(df, lyrics_df, left_on='title', right_index=True, how='left')
+    c = 0
+    for title in df:
+        try:
+            songs = (genius.search_song(df))
+            s = [song.lyrics for song in songs]
+            lyrics_df = pd.DataFrame(data=s, index=s, columns=['lyrics'])
+            merged_df = pd.merge(df, lyrics_df, left_on='title', right_index=True, how='left')
+            c += 1
+            print(f"Songs grabbed:{len(s)}")
+        except:
+            print(f"some exception at {title}: {c}")
     merged_df.to_csv('genius_grammy.csv', index=False)
     return merged_df
