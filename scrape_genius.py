@@ -28,5 +28,6 @@ def get_lyrics_from_dataframe(df, access_token, timeout=40):
             print(f"Songs grabbed:{len(s)}")
         except:
             print(f"some exception at {title}: {c}")
+            
     merged_df.to_csv('genius_grammy.csv', index=False)
     return merged_df
