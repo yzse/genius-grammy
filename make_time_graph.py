@@ -19,6 +19,6 @@ def make_time_graph(df):
     plt.xlabel('Year')
     plt.ylabel('Gloom Index')
 
-    plt.savefig('gloom_index_time_series.jpeg', dpi=300, bbox_inches='tight')
+    plt.savefig('gloom_index_time_series.png', dpi=300, bbox_inches='tight')
 
     return plt
