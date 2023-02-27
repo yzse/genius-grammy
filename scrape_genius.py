@@ -1,15 +1,11 @@
 import string
-from langdetect import detect
 import lyricsgenius
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import seaborn
 from adjustText import adjust_text
-import nltk
-from nltk.corpus import stopwords
-from nltk.stem import WordNetLemmatizer
-from nltk.tokenize import word_tokenize
+
+
 
 
 def get_lyrics_from_dataframe(df, access_token, timeout=40):

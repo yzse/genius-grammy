@@ -18,7 +18,5 @@ def make_time_graph(df):
     plt.title('Gloom Index by Year and Winner')
     plt.xlabel('Year')
     plt.ylabel('Gloom Index')
-
-    plt.savefig('gloom_index_time_series.png', dpi=300, bbox_inches='tight')
-
     return plt
+# %%

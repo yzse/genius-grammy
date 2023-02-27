@@ -42,9 +42,8 @@ def make_diff_graph(df):
     fig.set_size_inches(10, 20)
     fig.subplots_adjust(wspace=0.2)
 
-    # save and show plot
-    plt.savefig("gloom_index_mean_diff.png")
+
     plt.show()
 
     return plt
-#%%
+# %%
