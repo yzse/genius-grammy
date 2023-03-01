@@ -1,9 +1,5 @@
-import string
 import lyricsgenius
-import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
-from adjustText import adjust_text
 
 
 
