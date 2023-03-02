@@ -1,25 +1,22 @@
 import lyricsgenius
 import pandas as pd
 
+def get_lyrics_from_songs(df, access_token):
+    genius = lyricsgenius.Genius(access_token, remove_section_headers=True, timeout=40)
+    lyrics = []
+    song_names = []
 
+    # Parse songs
+    for index, row in df.iterrows():
+        title = row['title']
+        artist = row.get('artist')
+        if pd.notna(artist):
+            song = genius.search_song(title, artist)
+        else:
+            song = genius.search_song(title)
+        if song is not None:
+            song_names.append(title)
+            lyrics.append(song.lyrics)
 
-
-def get_lyrics_from_dataframe(df, access_token, timeout=40):
-    # Initialize Genius API client with timeout
-    genius = lyricsgenius.Genius(access_token, skip_non_songs=True, excluded_terms=["(Remix)", "(Live)"], remove_section_headers=True,timeout=timeout)
-
-    # Iterate over rows in dataframe
-    c = 0
-    for title in df:
-        try:
-            songs = (genius.search_song(df))
-            s = [song.lyrics for song in songs]
-            lyrics_df = pd.DataFrame(data=s, index=s, columns=['lyrics'])
-            merged_df = pd.merge(df, lyrics_df, left_on='title', right_index=True, how='left')
-            c += 1
-            print(f"Songs grabbed:{len(s)}")
-        except:
-            print(f"some exception at {title}: {c}")
-            
-    merged_df.to_csv('genius_grammy.csv', index=False)
-    return merged_df
+    df['lyrics'] = lyrics
+    df.to_csv('genius_grammy.csv')
